@@ -4,7 +4,7 @@ import {
 } from '../format.js';
 
 describe('date utilities', () => {
-  it('formats local dates without UTC day drift', () {
+  it('formats local dates without UTC day drift', () => {
     expect(toISODate(new Date(2026, 0, 2))).toBe('2026-01-02');
   });
 
