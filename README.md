@@ -46,5 +46,21 @@ The API host must implement the room, guest and booking endpoints expected by th
 
 See [QA_EXECUTION.md](./QA_EXECUTION.md) for scope and limitations. In repository Settings → Pages, choose **GitHub Actions** as the build/deployment source if it is not already enabled.
 
-## Backend status
-Java source files are present, but this repository root currently has no Maven or Gradle build descriptor. Full backend compilation, database integration, security testing and live end-to-end validation require a runnable backend project and configured database. Demo mode is not evidence that the production API works.
+## Backend API
+
+A runnable Spring Boot API is now provided under `backend/` with Java 21, Spring Web, Validation, Spring Data JPA, PostgreSQL support, and an H2 default for local tests. Endpoints include:
+- `GET /api/v1/health`
+- `GET/POST /api/v1/rooms`
+- `GET/POST /api/v1/guests`
+- `GET/POST /api/v1/bookings`
+- `PATCH /api/v1/bookings/{id}/status`
+
+Run frontend + PostgreSQL + API locally with Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+The API listens on `http://localhost:8080`; the Vite frontend runs on `http://localhost:5173` when started separately with `npm run dev`. For frontend-to-backend integration locally, set `VITE_USE_MOCK=false` and `VITE_API_BASE_URL=/api/v1`; Vite proxies `/api` to port 8080. The Render static site currently uses demo mode; deploying the API publicly and setting CORS/API URL is a separate release step. Change the default local PostgreSQL password before any shared deployment.
+
+The original Java files at repository root are legacy fragments and are not part of the new Maven build. The supported runnable backend source of truth is `backend/src/main/java/com/hms`.
