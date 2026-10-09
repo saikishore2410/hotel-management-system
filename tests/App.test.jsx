@@ -39,7 +39,7 @@ describe('front desk dashboard', () => {
     const user = userEvent.setup();
     render(<App />);
     await screen.findByRole('button', { name: /room 101, single, available/i });
-    await user.click(screen.getByRole('button', { name: /available/i, pressed: true }));
+    await user.click(screen.getByRole('button', { name: /available/i, pressed: false }));
     expect(screen.getByRole('button', { name: /room 101, single, available/i })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /room 102/i })).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: /all rooms/i }));
