@@ -35,3 +35,12 @@ Frontend build/test readiness is now automated but must be confirmed from the Gi
 - Dependency audit, authentication/authorization tests, input validation and secret scanning.
 - Browser-based end-to-end tests against staging.
 - Load/performance tests with explicit latency and throughput objectives.
+
+
+## Full-stack repair additions
+
+- Added a separate Maven/Spring Boot API project under `backend/`, using Java 21 and a PostgreSQL-compatible JPA configuration.
+- Added rooms, guests, bookings, validation, booking lifecycle transitions, overlap checks, and `/api/v1/health`.
+- Added Dockerfile and Docker Compose for API + PostgreSQL.
+- Added backend test job to GitHub Actions.
+- Backend deployment to a public service, auth/authorization, production secrets, database migrations, concurrent booking race tests, and load tests remain release tasks; do not consider them passed until run against the intended environment.
