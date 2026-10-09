@@ -14,7 +14,6 @@ import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1")
-@CrossOrigin(origins={"http://localhost:5173","http://localhost:4173"})
 public class ApiController {
     private final RoomRepo rooms;
     private final GuestRepo guests;
