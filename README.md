@@ -1,82 +1,39 @@
-@workspace Please create a new file named `README.md` directly in the project root directory. Use the professional markdown layout below to populate it completely:
+# HMS front desk dashboard
 
-# 🏨 Full-Stack Hotel Management System (HMS)
+React + Vite + Tailwind CSS v4 + Lucide icons.
 
-A robust, enterprise-grade **Hotel Management System** built using modern software design patterns. The application splits architecture cleanly into a high-performance **Java 25 RESTful API** backend and a responsive, aesthetic **React UI Dashboard** fueled by Vite and Tailwind CSS.
+## Set up
 
----
-
-## 🏗️ System Architecture & Tech Stack
-
-The application is structured as a Monorepo for unified version control and rapid development workflows:
-
-```text
-my-hotel-management-system/
-├── hotel-backend/          # Java 25 + Spring Boot Core REST Framework
-└── hotel-frontend/         # React JS + Vite Development Environment
+```bash
+npm create vite@latest hms-frontend -- --template react
+cd hms-frontend
+npm install
+npm install lucide-react tailwindcss @tailwindcss/vite
 ```
 
-### ⚙️ Backend Module
-- **Language / Framework:** Java 25, Spring Boot 3.3.5
-- **Data Access Layer:** Spring Data JPA, Hibernate ORM
-- **Database Architecture:** PostgreSQL 16+
-- **Security Protocols:** Spring Security, Stateless JSON Web Token (JWT) Role-Based Access Control
-- **Tooling:** Embedded Maven Wrapper (`mvnw`), Lombok Boilers reduction
+Copy `vite.config.js` and the `src/` folder from this project over the generated ones, and delete
+`src/App.css` and `src/assets`. Then create a `.env` file:
 
-### 🎨 Frontend Module
-- **Core Technology:** React JS (Vite Bundler Engine)
-- **Styling Architecture:** Tailwind CSS Framework, Lucide React Graphic Assets
-- **Network Interface:** Axios HTTP Client with built-in API proxy routing to port 8080
+```
+VITE_USE_MOCK=true
+```
 
----
+```bash
+npm run dev
+```
 
-## ⚡ Quick Start & Deployment Guide
+## Demo data vs the backend
 
-This project features a fully automated launcher script that spins up the background database container, mounts environmental safety flags, and prepares compilation layers locally in integrated workspaces.
+`VITE_USE_MOCK=true` (the default if unset) runs against an in-memory backend that follows the same
+rules as `BookingService`. Set `VITE_USE_MOCK=false` to call Spring Boot on port 8080 through the Vite proxy.
 
-### 📋 Prerequisites
-Ensure your local system environment matches the baseline runtimes:
-1. **Java Development Kit:** JDK 25 installed and available on environment paths.
-2. **Node Engine:** Node.js LTS engine configuration.
-3. **Container Infrastructure:** Docker Desktop active for hosting PostgreSQL services.
+Endpoints the dashboard calls:
 
-### 🚀 Step-by-Step Local Deployment
-
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com
-   cd hotel-management-system
-   ```
-
-2. **Configure Local Environment Credentials:**
-   Ensure a local `.env` file exists in the backend engine root containing database access criteria matching standard configuration vectors:
-   ```dotenv
-   DB_URL=jdbc:postgresql://localhost:5432/hotel_db
-   DB_USERNAME=hotel_user
-   DB_PASSWORD=YourStrongPassword123
-   JWT_SECRET=replace-with-a-long-random-secret-at-least-32-characters
-   ```
-
-3. **Fire Up the Application Launcher:**
-   Open a VS Code PowerShell terminal pane in the project root folder and execute the deployment script to boot the PostgreSQL container and Spring Boot backend context simultaneously:
-   ```powershell
-   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-   .\start-app.ps1
-   ```
-
-4. **Initialize the Frontend Dashboard UI:**
-   Open a split-terminal view layout pane inside VS Code, navigate to the user interface framework layer, download package dependencies, and run the hot-reload engine server:
-   ```powershell
-   cd hotel-frontend
-   npm install
-   npm run dev -- --host 0.0.0.0
-   ```
-
-5. **Interact with the Live Application Platform:**
-   Open your target web browser panel and browse directly to:
-   🔗 **http://localhost:5173**
-
----
-
-## 🔐 Environmental Security Matrix
-This public workspace is secured against credential compilation leaks. Database system passwords, connection routes, and cryptography signatures are dynamically injected as system variable blocks inside runtime engines, preventing operational secrets from ever hardcoding into public source records.
+| Call | Status |
+|---|---|
+| `GET /api/v1/bookings?size=200&sort=checkInDate,asc` | exists |
+| `POST /api/v1/bookings` | exists |
+| `PATCH /api/v1/bookings/{id}/status` | exists |
+| `GET /api/v1/rooms` returning `[{ id, roomNumber, type, pricePerNight, status }]` | still to build |
+| `GET /api/v1/guests?q=<email>` returning a `PageResponse` | still to build |
+| `POST /api/v1/guests` with `{ name, email, phone, idNumber }` returning `{ id, ... }` | still to build |
