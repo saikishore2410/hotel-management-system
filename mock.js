@@ -1,5 +1,5 @@
-import { ApiError } from './client';
-import { addDaysISO, nightsBetween, todayISO } from '../lib/format';
+import { ApiError } from './api/client';
+import { addDaysISO, nightsBetween, todayISO } from './lib/format';
 
 /**
  * In-memory demo backend. It reproduces the rules of BookingService so the UI behaves the

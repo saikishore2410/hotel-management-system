@@ -6,6 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 // and no CORS configuration is needed on the backend during development.
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  base: process.env.GITHUB_ACTIONS ? '/hotel-management-system/' : '/',
   server: {
     proxy: {
       '/api': { target: 'http://localhost:8080', changeOrigin: true },
