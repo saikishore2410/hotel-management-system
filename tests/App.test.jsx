@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App.jsx';
 
@@ -39,10 +39,12 @@ describe('front desk dashboard', () => {
     const user = userEvent.setup();
     render(<App />);
     await screen.findByRole('button', { name: /room 101, single, available/i });
-    await user.click(screen.getByRole('button', { name: /available/i, pressed: false }));
+    const filterGroup = screen.getByRole('group', { name: /filter rooms by status/i });
+    const availableFilter = within(filterGroup).getByRole('button', { name: /available/i });
+    await user.click(availableFilter);
     expect(screen.getByRole('button', { name: /room 101, single, available/i })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /room 102/i })).not.toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: /all rooms/i }));
+    await user.click(within(filterGroup).getByRole('button', { name: /all rooms/i }));
     expect(screen.getByRole('button', { name: /room 102/i })).toBeInTheDocument();
   });
 
